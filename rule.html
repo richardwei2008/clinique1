@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>倩碧真男人特供</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+
+    <link rel="stylesheet" type="text/css" href="css/app-0.0.1.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.4.min.css">
+
+    <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="js/jquery.mobile-1.4.4.min.js" type="text/javascript"></script>
+    <script src="js/beyond.wechat.share-0.1.js" type="text/javascript"></script>
+    <script src="js/app-1.0.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(window).ready(function () {
+            var openid = $.getUrlParam('openid');
+            sessionStorage.setItem('openid', openid);
+            if (openid === null || openid === 'null') {
+                openid = "FakeId";
+            }
+            $("#enter").click(function () {
+                window.location.href = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + '/info/instruction.html?openid=' + openid;
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="page" data-role="page" class="page" data-theme="d">
+    <div class="ui-header-custom" data-role="header" data-position="fixed">
+        <div id="banner" class="banner">
+            <!--
+            <img class="banner" src="images/banner.png">
+            -->
+        </div>
+    </div>
+    <div data-role="content" data-theme="d">
+        <div id="body" class="center">
+            <div class="rule" align="left">
+                    <span class="rule-font-white">
+                    活动时间：2014年9月19号—2014年10月7号<br>
+                    活动奖品：<br>
+                    倩碧真男人特供限量三步曲旅行装<br>
+                    倩碧真男人特供礼盒<br>
+                    <div style="height: 5px"></div>
+                    活动规则：<br>
+                    获得3位好友认同，即可获得真男人特供限量三步曲旅行装。真男人特供限量三步曲旅行装共计3000份，先到先得。<br>
+                    活动期间，单日支持率最高的用户还可以获得倩碧真男人特供礼盒。<br>
+                    <div style="height: 5px"></div>
+                    温馨提示<br>
+                    兑换成功后，请选择离你最近的店铺，输入你的手机号码，我们将店铺信息发送至你的手机。凭此信息可在任一店铺领取倩碧真男人特供好礼。<br>
+                    若未填写手机信息，即使获得3位好友认同或获得当日支持率最高的用户，我们将视为放弃获奖资格。<br>
+                    <div style="height: 5px"></div>
+                    活动声明：<br>
+                    本次活动由雅诗兰黛（上海）商贸有限公司举办，雅诗兰黛（上海）商贸有限公司对此次活动拥有最终解释权；<br>
+                    雅诗兰黛（上海）商贸有限公司员工及相关人员不得参加活动；<br>
+                    活动过程中，若发现恶意刷票等行为的用意，我们将直接取消其活动资格，并追究相应的法律责任。<br>
+                    因个人原因，个人信息填写错误或缺失，或逾期未去领取礼品，将视为自动放弃，主办方将不承担任何责任。<br>
+                    </span>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer" data-role="footer" class="footer" data-position="fixed" >
+        <table class="footer-table">
+            <tr>
+                <td class="footer-column">
+                    <a href="index.html" data-transition="slide" data-ajax="false">首&nbsp;&nbsp;页</a></td>
+                <td class="footer-column">
+                    <a href="top.html" data-transition="slide" data-ajax="false">人气排行榜</a></td>
+                <td class="footer-column">
+                    <a href="rule.html" data-transition="slide" data-ajax="false">活动规则</a></td>
+                <td class="footer-column">
+                    <a href="success.html" data-transition="slide" data-ajax="false">查看我的</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>
