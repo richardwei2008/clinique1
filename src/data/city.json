@@ -1,0 +1,66 @@
+{ "root": [
+    {   "pid" : 1,
+        "pname" : "安徽",
+        "list" : [
+        {"value": "0551", "name": "合肥"}]
+    },
+    {
+        "pid" : 2,
+        "pname" : "北京",
+        "list" : [
+        {"value": "010", "name": "北京"}]
+    },
+    {
+        "pid" : 3,
+        "pname" : "福建",
+        "list" : [
+        {"value": "0591", "name": "福州"}]
+    },
+    {
+        "pid" : 4,
+        "pname" : "甘肃",
+        "list" : [
+        {"value": "0931", "name": "兰州"}]
+    },
+    {
+        "pid" : 5,
+        "pname" : "广东",
+        "list" : [
+        {"value" : "-1", "name" : "--请选择--"},
+        {"value": "0769", "name": "东莞"},
+        {"value": "020", "name": "广州"},
+        {"value": "0755", "name": "深圳"}]
+    },
+    {
+        "pid" : 6,
+        "pname" : "贵州",
+        "list" : [
+        {"value": "0851", "name": "贵阳"}]
+    },
+    {
+        "pid" : 7,
+        "pname" : "河北",
+        "list" : [
+            {"value" : "-1", "name" : "--请选择--"},
+            {"value": "0310", "name": "邯郸"},
+            {"value": "0311", "name": "石家庄"},
+            {"value": "0315", "name": "唐山"}]
+    },
+    {
+        "pid" : 8,
+        "pname" : "河南",
+        "list" : [
+            {"value" : "-1", "name" : "--请选择--"},
+            {"value": "0379", "name": "洛阳"},
+            {"value": "0371", "name": "郑州"}]
+    },
+    {
+        "pid" : 9,
+        "pname" : "黑龙江",
+        "list" : [
+            {"value" : "-1", "name" : "--请选择--"},
+            {"value": "0459", "name": "大庆"},
+            {"value": "0451", "name": "哈尔滨"}]
+    }
+]
+}

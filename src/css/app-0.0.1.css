@@ -100,13 +100,17 @@ img {
     font-family: fzhs;
     font-size: 10pt;
 }
+.header-font2 {
+    font-family: fzhs;
+    font-size: 9pt;
+}
  .center {
     position: relative;
 }
 .share-circle {
-    background: url('../images/bg.png') no-repeat;
+    background: url('../images/main-body.png') no-repeat;
     background-position: center;
-    background-size: 85%;
+    background-size: 120%;
     height: 250px;
     position: relative;
     align: center;
@@ -226,7 +230,7 @@ img {
 .ui-choose-circle-content-custom {
     padding-left: 3px;
     position: relative;
-    top: 45px;
+    top: 60px;
     width: 100%;
 }
 .ui-agreed-circle-content-custom {
@@ -236,14 +240,14 @@ img {
 }
 .ui-status-circle-content-custom {
     position: relative;
-    top: 60px;
+    top: 70px;
     width: 100%;
 }
-.center .agree-font-black {
+.circle-center-font-black {
     /*  color: #ff4139;*/
     color: #000000;
     font-family: fzhs;
-    font-size: 11pt;
+    font-size: 10pt;
 }
 .ui-button-group-custom {
     margin: 5px auto;
@@ -291,7 +295,7 @@ img {
     width: 120px;
 }
 .submit-table {
-    /*width: 85%;*/
+    width: 100%;
 }
 .submit-table-row-odd {
     padding-top: 10px;

@@ -16,18 +16,24 @@
     <script src="js/jquery.mobile-1.4.4.min.js" type="text/javascript"></script>
     <script src="js/idangerous.swiper-2.7.0.js" type="text/javascript"></script>
     <script src="js/beyond.wechat.share-0.1.js" type="text/javascript"></script>
-    <script src="js/app-1.0.js" type="text/javascript"></script>
+    <script src="js/beyond.jquery.extension-1.0.js" type="text/javascript"></script>
+    <script src="js/beyond.common.js"></script>
+    <script src="js/beyond.wechat.js"></script>
+    <script src="js/app.config.js"></script>
+    <script src="js/app.js"></script>
     <script type="text/javascript">
         $(window).ready(function () {
-            var openid = $.getUrlParam('openid');
-            sessionStorage.setItem('openid', openid);
-            if (openid === null || openid === 'null') {
-                openid = "FakeId";
-            }
-            $("#enter").click(function () {
-                window.location.href = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + '/info/instruction.html?openid=' + openid;
+//            var openid = $.getUrlParam('openid');
+//            sessionStorage.setItem('openid', openid);
+//            if (openid === null || openid === 'null') {
+//                openid = "FakeId";
+//            }
+            $("#confirm").click(function () {
+                var choice = $(".swiper-slide-active .option").html();
+                var encodedChoice = encodeURI(choice);
+                window.location.href = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + '/confirm.html?choice=' + encodedChoice;
             });
-
+//            App.initChoose();
             var mySwiper = new Swiper('.swiper-container',{
                 pagination: '.pagination',
                 loop:true,
@@ -36,18 +42,12 @@
             });
             $("#arrow-left").click(function(e){
                 e.preventDefault();
-
-                mySwiper.swipeNext();
+                mySwiper.swipePrev();
             });
             $("#arrow-right").click( function(e){
                 e.preventDefault();
-
-                mySwiper.swipePrev();
+                mySwiper.swipeNext();
             });
-//            $("#photo").click( function(e){
-//                e.preventDefault();
-//                mySwiper.swipeNext();
-//            });
         });
     </script>
 </head>
@@ -79,55 +79,49 @@
                     <div class="swiper-slide">
                         <img src="images/slider1-2.png" style="display: none">
                         <div class="ui-choose-circle-content-custom" align="center">
-                                            <span class="agree-font-black">
+                                            <span class="circle-center-font-black">
                                               <br><br>
-                                            不会抱怨，只会包容！<br>
-                                             我就是这样的真男人。<br>
+                                                <div class="option">不会抱怨，只会包容！<br>我就是这样的真男人。<br></div>
                                             </span>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="ui-choose-circle-content-custom"  align="center">
-                                            <span class="agree-font-black">
+                                            <span class="circle-center-font-black">
                                               <br><br>
-                                            不懂放弃，只懂坚持<br>
-                                             我就是这样的真男人。<br>
+                                                 <div class="option">不懂放弃，只懂坚持<br>我就是这样的真男人。<br></div>
                                             </span>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="ui-choose-circle-content-custom"  align="center">
-                                            <span class="agree-font-black">
+                                            <span class="circle-center-font-black">
                                               <br>
-                                            负责任，<br>是与生俱来的本能！<br>
-                                             我就是这样的真男人。<br>
+                                                 <div class="option">负责任，<br>是与生俱来的本能！<br>我就是这样的真男人。<br></div>
                                             </span>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="ui-choose-circle-content-custom" align="center">
-                                            <span class="agree-font-black">
+                                            <span class="circle-center-font-black">
                                               <br>
-                                             一心一意，<br>是最温柔的力量！<br>
-                                             我就是这样的真男人。<br>
+                                                <div class="option">一心一意，<br>是最温柔的力量！<br>我就是这样的真男人。<br></div>
                                             </span>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="ui-choose-circle-content-custom" align="center">
-                                            <span class="agree-font-black">
+                                            <span class="circle-center-font-black">
                                               <br>
-                                             用一副肩膀，<br>扛起一家幸福！<br>
-                                             我就是这样的真男人。<br>
+                                                <div class="option">用一副肩膀，<br>扛起一家幸福！<br>我就是这样的真男人。<br></div>
                                             </span>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="ui-choose-circle-content-custom" align="center">
-                                            <span class="agree-font-black">
+                                            <span class="circle-center-font-black">
                                               <br>
-                                             不爱甜言蜜语，<br>只爱用行动表达！<br>
-                                             我就是这样的真男人。<br>
+                                                <div class="option">不爱甜言蜜语，<br>只爱用行动表达！<br>我就是这样的真男人。<br></div>
                                             </span>
                         </div>
                     </div>
@@ -139,7 +133,8 @@
             <table class="ui-button-group-custom" align="center">
                 <tr>
                     <td>  <div class="ui-button-border-custom ui-button-custom-center" align="center">
-                        <a href="confirm.html" data-transition="slide" data-ajax="false">确&nbsp;&nbsp;&nbsp;&nbsp;定</a>
+                        <!--<a href="confirm.html" data-transition="slide" data-ajax="false">确&nbsp;&nbsp;&nbsp;&nbsp;定</a>-->
+                        <div id="confirm">确&nbsp;&nbsp;&nbsp;&nbsp;定</div>
                     </div></td>
                 </tr>
             </table>

@@ -11,28 +11,32 @@
     <link rel="stylesheet" type="text/css" href="css/app-0.0.1.css">
     <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
     <script src="js/beyond.wechat.share-0.1.js" type="text/javascript"></script>
-    <script src="js/app-1.0.js" type="text/javascript"></script>
+    <script src="js/beyond.jquery.extension-1.0.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(window).ready(function () {
-            var openid = $.getUrlParam('openid');
-            sessionStorage.setItem('openid', openid);
-            if (openid === null || openid === 'null') {
-                openid = "FakeId";
+//            var openid = $.getUrlParam('openid');
+//            sessionStorage.setItem('openid', openid);
+//            if (openid === null || openid === 'null') {
+//                openid = "FakeId";
+//            }
+//            $("#enter").click(function () {
+//                window.location.href = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + '/info/instruction.html?openid=' + openid;
+//            });
+            var choice = decodeURIComponent($.getQueryStr('choice'));
+            if (choice !== null && choice !== 'null' && choice !== "") {
+                $("#selected").html(choice);
             }
-            $("#enter").click(function () {
-                window.location.href = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + '/info/instruction.html?openid=' + openid;
-            });
         });
     </script>
 </head>
 <body>
 <div id="sharemcover" onClick="document.getElementById('sharemcover').style.display='none';"  class="sharemcover"><img src="images/sharemask.png"></div>
 <div id="page" data-role="page" class="page" data-theme="d">
-    <div data-role="header" data-position="fixed">
+    <div  class="ui-header-custom" data-role="header" data-position="fixed">
         <div id="banner" class="banner">
         </div>
     </div>
-    <div data-role="content" data-theme="d">
+    <div class="ui-content-custom" data-role="content" data-theme="d">
         <div id="header" class="top">
             <table>
                 <tr>
@@ -52,10 +56,12 @@
                         <td  style="width:70%">
                             <div id="circle" class="choose-circle" align="center">
                                 <div class="ui-choose-circle-content-custom">
-                    <span class="agree-font-black">
+                    <span class="circle-center-font-black">
                           <br><br>
+                        <div id="selected">
                         不会抱怨，只会包容！<br>
-                         我就是这样的真男人。<br>
+                        我就是这样的真男人。<br>
+                       </div>
                         </span>
                                 </div>
                             </div>

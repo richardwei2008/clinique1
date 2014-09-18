@@ -15,17 +15,63 @@
     <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
     <script src="js/jquery.mobile-1.4.4.min.js" type="text/javascript"></script>
     <script src="js/beyond.wechat.share-0.1.js" type="text/javascript"></script>
-    <script src="js/app-1.0.js" type="text/javascript"></script>
+    <script src="js/beyond.jquery.extension-1.0.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(window).ready(function () {
-            var openid = $.getUrlParam('openid');
-            sessionStorage.setItem('openid', openid);
-            if (openid === null || openid === 'null') {
-                openid = "FakeId";
-            }
-            $("#enter").click(function () {
-                window.location.href = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + '/info/instruction.html?openid=' + openid;
+//            var openid = $.getUrlParam('openid');
+//            sessionStorage.setItem('openid', openid);
+//            if (openid === null || openid === 'null') {
+//                openid = "FakeId";
+//            }
+//            $("#enter").click(function () {
+//                window.location.href = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + '/info/instruction.html?openid=' + openid;
+//            });
+            $.getJSON("data/province.json", function (data) {
+                $("#province").empty();
+                $("#city").empty();
+                $("#city").append($("<option/>").text("--请选择--").attr("value", "-1"));
+                $("#site").empty();
+                $("#site").append($("<option/>").text("--请选择--").attr("value", -1));
+                $(data.root).each(function () {
+                    $("#province").append($("<option/>").text(this.name).attr("value", this.id));
+                });
             });
+            $("#province").unbind('change').bind('change',
+                    function(){
+                        var provinceId = $("#province").val();
+                        $.getJSON("data/city.json", function (data) {
+                            $("#city").empty();
+                            $(data.root).each(function () {
+                                if (this.pid == provinceId) {
+                                    $(this.list).each(function () {
+                                        $("#city").append($("<option/>").text(this.name).attr("value", this.value));
+                                    });
+                                }
+                                if ($("#city").val() !== "") {
+                                    $("#city").trigger('change');
+                                }
+                            });
+                        });
+                    }
+            );
+            $("#city").unbind('change').bind('change',
+                    function(){
+                        var cityId = $("#city").val();
+                        $("#site").empty();
+                        $("#site").append($("<option/>").text("--请选择--").attr("value", -1));
+                        $.getJSON("data/site.json", function (data) {
+                            $("#site").empty();
+                            $(data.root).each(function () {
+                                if (this.cid == cityId) {
+                                    $(this.list).each(function () {
+                                        $("#site").append($("<option/>").text(this.name).attr("value", this.value));
+                                    });
+                                }
+                            });
+                        });
+                    }
+            );
+
         });
     </script>
 </head>
@@ -35,7 +81,7 @@
         <div id="banner" class="banner">
         </div>
     </div>
-    <div data-role="content" >
+    <div class="ui-content-custom" data-role="content" >
         <div id="header" class="top">
             <table>
                 <tr>
@@ -48,7 +94,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" class="top-table-cell">
-                    <span class="header-font">请选择你的所在地信息，并留下你的手机号码<br>
+                    <span class="header-font2">请选择你的所在地信息，并留下你的手机号码<br>
                         店铺地址就会发送到你手机<br>
                         凭短信即可前往领取礼物</span>
                     </td>
@@ -59,12 +105,12 @@
             <div>
                 <table class="submit-table"  align="center">
                     <tr>
-                        <td class="submit-table-cell submit-table-cell-font submit-table-row-odd">省</td>
+                        <td class="submit-table-cell submit-table-cell-font submit-table-row-odd">省/直辖市</td>
                         <td class="submit-table-cell submit-table-cell-font submit-table-row-odd">城市</td>
                     </tr>
                     <tr>
                         <td class="submit-table-cell ">
-                            <select class="ui-my-select-custom" data-role="none" >
+                            <select id="province" class="ui-my-select-custom" data-role="none" >
                                 <option value="上海">上海</option>
                                 <option value="北京">北京</option>
                                 <option value="浙江">浙江</option>
@@ -72,18 +118,22 @@
                             </select>
                         </td>
                         <td class="submit-table-cell ">
-                            <select class="ui-my-select-custom"  data-role="none">
+                            <select id="city" class="ui-my-select-custom"  data-role="none">
                                 <option>上海</option><option>北京</option><option>杭州</option><option>广州</option><option>深圳</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
-                        <td class="submit-table-cell submit-table-cell-font submit-table-row-odd">区</td>
-                        <td class="submit-table-cell submit-table-cell-font submit-table-row-odd">门店</td>
+                        <!--<td class="submit-table-cell submit-table-cell-font submit-table-row-odd">区</td>-->
+                        <td colspan="2" class="submit-table-cell submit-table-cell-font submit-table-row-odd">门店</td>
                     </tr>
                     <tr >
-                        <td class="submit-table-cell"><select class="ui-my-select-custom"  data-role="none"><option>黄浦区</option><option>静安区</option><option>虹口区</option><option>长宁区</option></select></td>
-                        <td class="submit-table-cell"><select class="ui-my-select-custom"  data-role="none"><option>上海XXXX1门店</option><option>上海XXXX2门店</option></select></td>
+                        <!--<td class="submit-table-cell"><select class="ui-my-select-custom"  data-role="none"><option>黄浦区</option><option>静安区</option><option>虹口区</option><option>长宁区</option></select></td>-->
+                        <td colspan="2" class="submit-table-cell">
+                            <select id="site" class="ui-my-select-custom"  data-role="none">
+                                <option>上海XXXX1门店</option><option>上海XXXX2门店</option>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <td colspan="2" class="submit-table-cell submit-table-cell-font submit-table-row-odd">手机号码</td>

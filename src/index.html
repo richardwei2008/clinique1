@@ -14,18 +14,23 @@
 
     <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
     <script src="js/jquery.mobile-1.4.4.min.js" type="text/javascript"></script>
+    <script src="js/beyond.jquery.extension-1.0.js" type="text/javascript"></script>
     <script src="js/beyond.wechat.share-0.1.js" type="text/javascript"></script>
-    <script src="js/app-1.0.js" type="text/javascript"></script>
+    <script src="js/beyond.common.js"></script>
+    <script src="js/beyond.wechat.js"></script>
     <script type="text/javascript">
         $(window).ready(function () {
-            var openid = $.getUrlParam('openid');
-            sessionStorage.setItem('openid', openid);
-            if (openid === null || openid === 'null') {
-                openid = "FakeId";
-            }
-            $("#enter").click(function () {
-                window.location.href = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + '/info/instruction.html?openid=' + openid;
-            });
+//            var openid = $.getUrlParam('openid');
+//            sessionStorage.setItem('openid', openid);
+//            if (openid === null || openid === 'null') {
+//                openid = "FakeId";
+//            }
+//            $("#enter").click(function () {
+//                window.location.href = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + '/info/instruction.html?openid=' + openid;
+//            });
+//            $('#join').click(function(){
+//                Beyond.WeChat.redirectToPageWithOauth("choose.html");
+//            });
         });
     </script>
 </head>
@@ -49,6 +54,7 @@
             </div>
             <div class="ui-button-border-custom ui-button-wide-custom" align="center">
                 <a href="choose.html" data-transition="slide" data-ajax="false">是真男人就来参加</a>
+                <!--<div id="join">是真男人就来参加</div>-->
             </div>
         </div>
     </div>
