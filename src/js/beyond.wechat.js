@@ -2,9 +2,13 @@
 // Beyond.Common.namespace("Beyond").WeChat = {};
 Beyond.namespace("WeChat");
 Beyond.WeChat = {
-    DEBUG: true,
+    DEBUG: false,
+    APPID: "wxc63c757bdae5dd41",
+    ROOT: "trueman",
+    DOMAIN: "http://beyondwechattest.sinaapp.com",
     // REDIRECT_URI_TEMPLATE: "http%3A%2F%2F" + "%s" + "%2F" + "%s", // (%s, %s) <= (window.location.hostname, attendance.html)
-    HTTP_OAUTH_CODE_URI: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc63c757bdae5dd41&redirect_uri=" + "%s" + "&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect", // (%s) <= (redirect_uri)
+//    HTTP_USERINFO_OAUTH_CODE_URI: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + Beyond.WeChat.APPID + "&redirect_uri=" + "%s" + "&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect", // (%s) <= (redirect_uri)
+//    HTTP_BASE_OAUTH_CODE_URI: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + Beyond.WeChat.APPID + "&redirect_uri=" + "%s" + "&response_type=code&scope=snsapi_base&state=1#wechat_redirect", // (%s) <= (redirect_uri)
     OAUTH_URL: "http://" + window.location.hostname + "/oauth2.php",
     isWeiXin: function () {
         "use strict";
@@ -14,13 +18,23 @@ Beyond.WeChat = {
     },
     formatRedirectUrl: function (pagename) {
         "use strict";
-        var redirectTemplate = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/" + "%s",
+        var redirectTemplate = Beyond.WeChat.DOMAIN + "/" + Beyond.WeChat.ROOT + "/" + "%s",
             redirectUri= Beyond.Common.sprintf(redirectTemplate, pagename);
         return window.encodeURIComponent(redirectUri);
     },
+    getHttpUserInfoOAuthCodeUri : function() {
+        return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + Beyond.WeChat.APPID + "&redirect_uri=" + "%s" + "&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect";
+    },
+    getHttpBaseOAuthCodeUri : function() {
+        return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + Beyond.WeChat.APPID + "&redirect_uri=" + "%s" + "&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+    },
     formatOauthUrl: function (redirectUri) {
         "use strict";
-        return Beyond.Common.sprintf(this.HTTP_OAUTH_CODE_URI, redirectUri);
+        return Beyond.Common.sprintf(this.getHttpUserInfoOAuthCodeUri(), redirectUri);
+    },
+    formatBaseOauthUrl: function (redirectUri) {
+        "use strict";
+        return Beyond.Common.sprintf(this.getHttpBaseOAuthCodeUri(), redirectUri);
     },
     redirectToPageWithOauth: function (gotoUri) {
         "use strict";
@@ -29,10 +43,28 @@ Beyond.WeChat = {
             if (Beyond.WeChat.isWeiXin()) {
                 var redirect_uri = Beyond.WeChat.formatRedirectUrl(gotoUri);
                 // var redirect_uri = "http%3A%2F%2F" + window.location.hostname + "%2Fattendance.html";
-                Beyond.Common.alert(Beyond.WeChat.DEBUG, redirect_uri);
+//                Beyond.Common.alert(Beyond.WeChat.DEBUG, redirect_uri);
 				var oauth_uri = Beyond.WeChat.formatOauthUrl(redirect_uri);
 				// var oauth_uri = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc63c757bdae5dd41&redirect_uri="+ redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect";				
-				Beyond.Common.alert(Beyond.WeChat.DEBUG, oauth_uri);
+//				Beyond.Common.alert(Beyond.WeChat.DEBUG, oauth_uri);
+                // window.location.href = oauth_uri;
+                window.location.href = oauth_uri;
+            } else {
+                window.location.href = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/" + gotoUri;
+            }
+        }());
+    },
+    redirectToPageWithBaseOauth: function (gotoUri) {
+        "use strict";
+        return (function () {
+            // Beyond.Common.alert(Beyond.WeChat.DEBUG, "isWeiXin: " +  Beyond.WeChat.isWeiXin());
+            if (Beyond.WeChat.isWeiXin()) {
+                var redirect_uri = Beyond.WeChat.formatRedirectUrl(gotoUri);
+                // var redirect_uri = "http%3A%2F%2F" + window.location.hostname + "%2Fattendance.html";
+//                Beyond.Common.alert(Beyond.WeChat.DEBUG, redirect_uri);
+                var oauth_uri = Beyond.WeChat.formatBaseOauthUrl(redirect_uri);
+                // var oauth_uri = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc63c757bdae5dd41&redirect_uri="+ redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect";
+//				Beyond.Common.alert(Beyond.WeChat.DEBUG, oauth_uri);
                 // window.location.href = oauth_uri;
                 window.location.href = oauth_uri;
             } else {
@@ -54,7 +86,7 @@ Beyond.WeChat = {
         var userInfo = null,
         code = this.getQueryString("code");
         if (this.isWeiXin()) {
-            Beyond.Common.alert(this.DEBUG, "code " + code);
+            // Beyond.Common.alert(this.DEBUG, "code " + code);
             $.ajax({
                 async: false,
                 url: this.OAUTH_URL, //这是我的服务端处理文件php的
@@ -62,18 +94,18 @@ Beyond.WeChat = {
                 data: {code: code}, // 传递本页面获取的code到后台，以便后台获取openid
                 timeout: 1000,
                 success: function (result) {
-                    Beyond.Common.alert(Beyond.WeChat.DEBUG, "oauth success");
-                    Beyond.Common.alert(Beyond.WeChat.DEBUG, result);
+                    // Beyond.Common.alert(Beyond.WeChat.DEBUG, "oauth success");
+                    // Beyond.Common.alert(Beyond.WeChat.DEBUG, result);
                     var resultObj = eval(result);
                     // Beyond.Common.alert(Beyond.WeChat.DEBUG, resultObj.result);
                     userInfo = JSON.parse(resultObj.result);
-                    Beyond.Common.alert(Beyond.WeChat.DEBUG,  callback);
+                    // Beyond.Common.alert(Beyond.WeChat.DEBUG,  callback);
                     if (null !== callback) {
                         callback(userInfo);
                     }
                 },
                 error: function (xhr) {
-                    // Beyond.Common.alert(Beyond.WeChat.DEBUG, "oauth failed");
+//                    Beyond.Common.alert(Beyond.WeChat.DEBUG, "oauth failed");
                     $("#fatalMsg").text(xhr);
                     $.mobile.changePage('#fatal', {transition: 'pop', role: 'dialog'});
                 }

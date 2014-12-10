@@ -11,76 +11,73 @@
 
     <link rel="stylesheet" type="text/css" href="css/app-0.0.1.css">
     <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.4.min.css">
+	<link rel="stylesheet" type="text/css" href="css/loader.css">
 
     <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
     <script src="js/jquery.mobile-1.4.4.min.js" type="text/javascript"></script>
-    <script src="js/beyond.wechat.share-0.1.js" type="text/javascript"></script>
     <script src="js/beyond.jquery.extension-1.0.js" type="text/javascript"></script>
+    <script src="js/beyond.common.js"></script>
+    <script src="js/beyond.wechat.js"></script>
+    <script src="js/app.config.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/app.wechat.share-0.1.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(window).ready(function () {
-            var openid = $.getUrlParam('openid');
-            sessionStorage.setItem('openid', openid);
-            if (openid === null || openid === 'null') {
-                openid = "FakeId";
-            }
-            $("#enter").click(function () {
-                window.location.href = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + '/info/instruction.html?openid=' + openid;
-            });
+            App.initNavigation();
+            App.initRule();
+        });		
+        $(window).load(function () {
+            $(".loader").fadeOut("slow");
         });
     </script>
 </head>
 <body>
+<div class="loader"></div>
 <div id="page" data-role="page" class="page" data-theme="d">
-    <div class="ui-header-custom" data-role="header" data-position="fixed">
-        <div id="banner" class="banner">
-            <!--
-            <img class="banner" src="images/banner.png">
-            -->
-        </div>
+    <div class="ui-header-custom" data-role="header">
+        <div id="banner" class="banner bannerbg"></div>
     </div>
     <div class="ui-content-custom" data-role="content" data-theme="d">
-        <div id="body" class="center">
+        <div id="body" class="center" align="center">
             <div class="rule" align="left">
                     <span class="rule-font-white">
-                    活动时间：2014年10月8号—2014年10月17号<br>
-                    活动奖品：<br>
-                    真男人特供倩碧限量三步曲旅行装<br>
-                    真男人特供倩碧男士三步曲套装<br>
-                    <br>
-                    <!--<div style="height: 5px"></div>-->
+                    活动时间：即日起至2014年10月19日<br>
                     活动规则：<br>
-                    获得3位好友认同，即可获得真男人特供限量三步曲旅行装。真男人特供限量三步曲旅行装共计3000份，先到先得，送完即止。<br>
-                    活动期间，单日支持率最高的用户还可以获得倩碧男士三步曲套装。<br>
-                    每个手机号码仅限一次获奖机会。<br>
+                    获得3位好友认同，即可获得倩碧真男人特供旅行装。每天限量300份，先到先得，送完即止，每天24点清空当日用户支持数。<br>
+                    活动期间，单日支持率最高的用户可获得倩碧真男人正品套装。<br>
+                    每个手机号码仅限一次获奖机会，<br>且仅限一次投票机会。<br>
                     <br>
-                    <!--<div style="height: 5px"></div>-->
-                    温馨提示<br>
-                    兑换成功后，请选择离你最近的店铺，输入你的手机号码，我们将店铺信息发送至你的手机。凭此信息可在任一专柜领取倩碧男士三步曲旅行装或倩碧男士三步曲套装。<br>
-                    若未填写手机信息，即使获得3位好友认同或获得当日支持率最高的用户，我们将视为放弃获奖资格。<br>
-                    当日支持率最高的用户，倩碧官方将及时与您联系，请留下详细个人信息，我们将礼品寄送给您。<br>
-                    <br>
-                    <!--<div style="height: 5px"></div>-->
                     活动声明：<br>
-                    本次活动由雅诗兰黛（上海）商贸有限公司举办，雅诗兰黛（上海）商贸有限公司对此次活动拥有最终解释权；<br>
-                    雅诗兰黛（上海）商贸有限公司员工及相关人员不得参加活动；<br>
-                    活动过程中，若发现恶意刷票等行为的用意，我们将直接取消其活动资格，并追究相应的法律责任。<br>
-                    因个人原因，个人信息填写错误或缺失，或逾期未去领取礼品，将视为自动放弃，主办方将不承担任何责任。<br>
+                    获得3位好友认同后，请根据提示输入个人信息用于领取特供旅行装。凭短信两周内可在指定专柜领取。<br>
+                    本次活动暂不包括目前尚无倩碧专柜的城市，<br>敬请谅解。<br>
+                    当日支持率最高的用户，倩碧官方将及时与您联系，请留下详细个人信息，我们将礼品寄送给您。<br>
+                    活动过程中，若发现恶意刷票等行为的用户，我们将直接取消其活动资格，并追究相应的法律责任。<br>
+                    个人信息填写错误或缺失导致礼品无法正常寄送，主办方将不承担任何责任。<br>
+                    在法律允许的范围内，倩碧品牌对此次活动拥有最终解释权。<br>
                     </span>
             </div>
         </div>
     </div>
 
-    <div id="footer" data-role="footer" class="footer" data-position="fixed" >
+    <div id="footer" data-role="footer" class="footer body-font-white-medium" data-position="fixed" >
         <table class="footer-table">
             <tr>
                 <td class="footer-column">
-                    <a href="index.html" data-transition="slide" data-ajax="false">首&nbsp;&nbsp;页</a></td>
+                    <!--<a href="index.html" data-transition="slide" data-ajax="false">首&nbsp;&nbsp;页</a>-->
+                    <div id="start">首&nbsp;&nbsp;页</div>
+                </td>
                 <td class="footer-column">
-                    <a href="top.html" data-transition="slide" data-ajax="false">人气排行榜</a></td>
+                    <!--<a href="top.html" data-transition="slide" data-ajax="false">人气排行榜</a>-->
+                    <div id="rank">人气排行榜</div>
+                </td>
+                <td class="footer-column footer-column-active">
+                    <!--<a href="rule.html" data-transition="slide" data-ajax="false">活动规则</a>-->
+                    <div id="rule">活动规则</div>
+                </td>
                 <td class="footer-column">
-                    <a href="rule.html" data-transition="slide" data-ajax="false">活动规则</a></td>
-                <td class="footer-column">
-                    <a href="success.html" data-transition="slide" data-ajax="false">查看我的</a></td>
+                    <!--<a href="success.html" data-transition="slide" data-ajax="false">查看我的</a>-->
+                    <div id="status">查看我的</div>
+                </td>
             </tr>
         </table>
     </div>

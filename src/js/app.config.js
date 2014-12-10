@@ -1,5 +1,7 @@
 var AppConfig = {
     LOCAL: false,
-    DEBUG: true,
-    DOMAIN: "http://beyondwechattest.vipsinaapp.com"
+    DEBUG: false,
+    ROOT: "trueman",
+    DOMAIN: "http://beyondwechattest.sinaapp.com"
+
 };

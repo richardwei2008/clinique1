@@ -11,29 +11,34 @@
 
     <link rel="stylesheet" type="text/css" href="css/app-0.0.1.css">
     <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.4.min.css">
+	<link rel="stylesheet" type="text/css" href="css/loader.css">
 
+    <script src="js/json2.js" type="text/javascript"></script>
     <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
     <script src="js/jquery.mobile-1.4.4.min.js" type="text/javascript"></script>
-    <script src="js/beyond.wechat.share-0.1.js" type="text/javascript"></script>
+    <script src="js/jquery.tmpl.js"></script>
     <script src="js/beyond.jquery.extension-1.0.js" type="text/javascript"></script>
+    <script src="js/beyond.common.js"></script>
+    <script src="js/beyond.wechat.js"></script>
+    <script src="js/app.config.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/app.wechat.share-0.1.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(window).ready(function () {
-            var openid = $.getUrlParam('openid');
-            sessionStorage.setItem('openid', openid);
-            if (openid === null || openid === 'null') {
-                openid = "FakeId";
-            }
-            $("#enter").click(function () {
-                window.location.href = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + '/info/instruction.html?openid=' + openid;
-            });
+            App.initNavigation();
+            App.initTop();
+        });
+		
+        $(window).load(function () {
+            $(".loader").fadeOut("slow");
         });
     </script>
 </head>
 <body>
+<div class="loader"></div>
 <div id="page" data-role="page" class="page" data-theme="d">
-    <div class="ui-header-custom" data-role="header" data-position="fixed">
-        <div id="banner" class="banner">
-        </div>
+    <div class="ui-header-custom" data-role="header">
+        <div id="banner" class="banner bannerbg"></div>
     </div>
     <div class="ui-content-custom" data-role="content" data-theme="d">
         <div id="header" class="top">
@@ -44,76 +49,126 @@
                     </td>
                 </tr>
             </table>
-            <table>
-                <tr>
+        </div>
+        <div id="topTemplate">
+            <script id="dailyTopSupport" type="text/x-jQuery-tmpl">
+			    <tr>
                     <td class="top-photo-col">
-                        <img class="photo" src="images/top1.png">
+                        <img class="photo" src="${headimgurl}">
                     </td>
                     <td  class="top-table-cell">
-                        <span class="header-font">兜里没有几个钱了，数了数，只有32元，够了，他想：今天就用这几十元做本钱。去批发菜场进货得很早，清晨5点就爬起来，没有三轮车</span>
+                        <p class="nickname">{{if nickname == null || nickname == '' || nickname == '我'}}${'倩碧男士用户'}{{else}}${nickname}{{/if}}</p>
+                        <p><span class="header-font2">{{html tag}}</span></p>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <span class="header-font">赞  325567</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="top-photo-col">
-                        <img class="photo" src="images/top2.png">
-                    </td>
-                    <td  class="top-table-cell">
-                        <span class="header-font">兜里没有几个钱了，数了数，只有32元，够了，他想：今天就用这几十元做本钱。去批发菜场进货得很早，清晨5点就爬起来，没有三轮车</span>
+                        <span class="header-font">支持数&nbsp;&nbsp;${numberOfSupport}</span>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <span class="header-font">赞  309543</span>
+                     <br>
                     </td>
                 </tr>
+		    </script>
+            </div>
+            <div id="body"  class="top-content">
+            <table id="tableTop">
+                <!--<tr>-->
+                    <!--<td class="top-photo-col">-->
+                        <!--<img class="photo" src="images/top1.png">-->
+                    <!--</td>-->
+                    <!--<td  class="top-table-cell">-->
+                        <!--<span class="header-font">兜里没有几个钱了，数了数，只有32元，够了，他想：今天就用这几十元做本钱。去批发菜场进货得很早，清晨5点就爬起来，没有三轮车</span>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td colspan="2">-->
+                        <!--<span class="header-font">赞  325567</span>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td class="top-photo-col">-->
+                        <!--<img class="photo" src="images/top2.png">-->
+                    <!--</td>-->
+                    <!--<td  class="top-table-cell">-->
+                        <!--<span class="header-font">兜里没有几个钱了，数了数，只有32元，够了，他想：今天就用这几十元做本钱。去批发菜场进货得很早，清晨5点就爬起来，没有三轮车</span>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td colspan="2">-->
+                        <!--<span class="header-font">赞  309543</span>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td class="top-photo-col">-->
+                        <!--<img class="photo" src="images/top3.png">-->
+                    <!--</td>-->
+                    <!--<td  class="top-table-cell">-->
+                        <!--<span class="header-font">兜里没有几个钱了，数了数，只有32元，够了，他想：今天就用这几十元做本钱。去批发菜场进货得很早，清晨5点就爬起来，没有三轮车</span>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td colspan="2">-->
+                        <!--<span class="header-font">赞  289091</span>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td class="top-photo-col">-->
+                        <!--<img class="photo" src="images/top4.png">-->
+                    <!--</td>-->
+                    <!--<td  class="top-table-cell">-->
+                        <!--<span class="header-font">兜里没有几个钱了，数了数，只有32元，够了，他想：今天就用这几十元做本钱。去批发菜场进货得很早，清晨5点就爬起来，没有三轮车</span>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td colspan="2">-->
+                        <!--<span class="header-font">赞  260410</span>-->
+                    <!--</td>-->
+                <!--</tr>-->
                 <tr>
                     <td class="top-photo-col">
-                        <img class="photo" src="images/top3.png">
                     </td>
                     <td  class="top-table-cell">
-                        <span class="header-font">兜里没有几个钱了，数了数，只有32元，够了，他想：今天就用这几十元做本钱。去批发菜场进货得很早，清晨5点就爬起来，没有三轮车</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <span class="header-font">赞  289091</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="top-photo-col">
-                        <img class="photo" src="images/top4.png">
-                    </td>
-                    <td  class="top-table-cell">
-                        <span class="header-font">兜里没有几个钱了，数了数，只有32元，够了，他想：今天就用这几十元做本钱。去批发菜场进货得很早，清晨5点就爬起来，没有三轮车</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <span class="header-font">赞  260410</span>
                     </td>
                 </tr>
             </table>
         </div>
     </div>
 
-    <div id="footer" data-role="footer" class="footer" data-position="fixed" >
+    <div id="footer" data-role="footer" class="footer body-font-white-medium" data-position="fixed" >
         <table class="footer-table">
             <tr>
                 <td class="footer-column">
-                    <a href="index.html" data-transition="slide" data-ajax="false">首&nbsp;&nbsp;页</a></td>
+                    <!--<a href="index.html" data-transition="slide" data-ajax="false">首&nbsp;&nbsp;页</a>-->
+                    <div id="start">首&nbsp;&nbsp;页</div>
+                </td>
+                <td class="footer-column footer-column-active">
+                    <!--<a href="top.html" data-transition="slide" data-ajax="false">人气排行榜</a>-->
+                    <div id="rank">人气排行榜</div>
+                </td>
+                <td class="footer-column ">
+                    <!--<a href="rule.html" data-transition="slide" data-ajax="false">活动规则</a>-->
+                    <div id="rule">活动规则</div>
+                </td>
                 <td class="footer-column">
-                    <a href="top.html" data-transition="slide" data-ajax="false">人气排行榜</a></td>
-                <td class="footer-column">
-                    <a href="rule.html" data-transition="slide" data-ajax="false">活动规则</a></td>
-                <td class="footer-column">
-                    <a href="success.html" data-transition="slide" data-ajax="false">查看我的</a></td>
+                    <!--<a href="success.html" data-transition="slide" data-ajax="false">查看我的</a>-->
+                    <div id="status">查看我的</div>
+                </td>
             </tr>
         </table>
+    </div>
+</div>
+<div data-role="page" id="fatal" data-dismissible="false" data-close-btn="right" class="ui-dialog-background-customized">
+    <div data-role="header">
+        <h1><span class="label label-danger">严重错误</span></h1>
+    </div>
+    <div data-role="content" class="ui-dialog-content-background-customized">
+        <div class="ui-dialog-message-customized">
+            <p><span id="fatalMsg" class="ui-input-label-customized"></span></p>
+        </div>
+        <button class="ui-btn ui-shadow ui-corner-all ui-btn-close-custom" data-mini="true" data-inline="true" onclick="$('#fatal').dialog('close');">确认</button>
     </div>
 </div>
 </body>

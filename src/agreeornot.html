@@ -11,89 +11,132 @@
 
     <link rel="stylesheet" type="text/css" href="css/app-0.0.1.css">
     <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.4.min.css">
+    <link rel="stylesheet" type="text/css" href="css/loader.css">
 
     <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
     <script src="js/jquery.mobile-1.4.4.min.js" type="text/javascript"></script>
-    <script src="js/beyond.wechat.share-0.1.js" type="text/javascript"></script>
     <script src="js/beyond.jquery.extension-1.0.js" type="text/javascript"></script>
+    <script src="js/beyond.common.js"></script>
+    <script src="js/beyond.wechat.js"></script>
+    <script src="js/app.config.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/app.wechat.share-0.1.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(window).ready(function () {
-            var openid = $.getUrlParam('openid');
-            sessionStorage.setItem('openid', openid);
-            if (openid === null || openid === 'null') {
-                openid = "FakeId";
-            }
-            $("#enter").click(function () {
-                window.location.href = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + '/info/instruction.html?openid=' + openid;
-            });
+            App.initNavigation();
+            App.initAgreeOrDisagree();
+            $(".loader").fadeOut("slow");
         });
     </script>
 </head>
 <body>
-<div id="page" data-role="page" class="page" data-theme="d">
-    <div class="ui-header-custom" data-role="header" data-position="fixed">
-        <div id="banner" class="banner">
+<div class="loader"></div>
+<div id="sharemcover" onClick="document.getElementById('sharemcover').style.display='none';"  class="share-mask">
+    <img src="images/sharemask.png">
+</div>
+<div id="messageMask" onClick="document.getElementById('messageMask').style.display='none';"  class="message-mask">
+    <div id="errorBox" class="message-content" align="center">
+        <div style="float:right; width:20px; height:20px;cursor:hand;background-image:url('images/close.png');background-repeat: no-repeat;"></div>
+        <div id="errorMsg" class="message-font" align="center">
+            错误提示！
         </div>
     </div>
+</div>
+<div id="page" data-role="page" class="page" data-theme="d">
+    <div class="ui-header-custom" data-role="header">
+        <div id="banner" class="banner bannerbg"></div>
+    </div>
     <div class="ui-content-custom" data-role="content" data-theme="d">
-        <div id="header" class="top">
+        <div id="top" class="top">
             <table>
                 <tr>
                     <td>
-                        <img class="photo" src="images/thumbnail2.png">
+                        <img id="photo" class="photo" src="images/unknown.png">
                     </td>
                     <td>
-                        <span id="nickname" class="nickname">&nbsp;&nbsp;Waters&nbsp;</span><span class="header-font">是不是真男人？由你说了算！</span>
-
+                        <div class="top-content">
+                            <span id="nickname" class="nickname">&nbsp;</span><br>
+                            <span class="header-font">是不是真男人？由你说了算！</span>
+                        </div>
                     </td>
                 </tr>
             </table>
         </div>
-        <div id="body" class="center">
-            <div id="circle" class="choose-circle" align="center">
-                <div class="ui-status-circle-content-custom">
-                    <span class="circle-center-font-black">
-                         Waters 认为：<br>
-                    不会抱怨，只会包容！<br>我就是这样的真男人，<br>你同意吗？
-                        </span>
+        <div id="body">
+            <div id="circle" class="ui-common-circle-size choose-circle" align="center">
+                <div class="ui-support-circle-content-custom">
+                    <div class="circle-center-font-black">
+                        <div id="theNickname">
+                            <!--Waters认为<br>-->
+                        </div>
+                        <div id="tag">
+                            <!--不会抱怨，只会包容！<br>-->
+                            <!--我就是这样的真男人，<br>-->
+                        </div>
+                        <div>你同意吗？<br></div>
+                    </div>
                 </div>
             </div>
-            <div class="bottom">
-                <table class="ui-button-group-custom" align="center">
-                    <tr>
-                        <td>  <div class="ui-button-border-custom ui-button-custom-agree" align="center">
-                            <a href="agreed.html" data-transition="slide" data-ajax="false">我同意</a>
-                        </div></td>
-                        <td>
-                            <div class="ui-button-border-custom ui-button-custom-disagree" align="center">
-                                <a href="choose.html" data-transition="slide" data-ajax="false">哼，我才是真男人！</a>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-                <div class="body-font-white"  align="center">
-                    <p>获得3位好友支持，即可赢取真男人特供：</p>
-                    <p>限量倩碧男士三步曲旅行装！</p>
-                    <p>当天支持率最高的用户，</p>
-                    <p>更可获真男人特供礼盒！</p>
-                </div>
+        </div>
+        <div class="bottom">
+            <table class="ui-button-group-custom" align="center">
+                <tr>
+                    <td>  <div class="body-font-white-medium ui-button-border-custom ui-button-custom-agree" align="center">
+                        <!--<a href="agreed.html" data-transition="slide" data-ajax="false">我同意</a>-->
+                        <div id="agree">我同意</div>
+                    </div></td>
+                    <td>
+                        <div class="body-font-white-medium ui-button-border-custom ui-button-custom-disagree" align="center">
+                            <!--<a href="choose.html" data-transition="slide" data-ajax="false">哼，我才是真男人！</a>-->
+                            <div id="disagree">&nbsp;&nbsp;哼，我才是真男人！</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="body-font-white-medium ui-button-border-custom ui-button-custom-invite-narrow" align="center">
+                            <div id="invite">召唤真男人</div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="body-font-white-tiny ui-button-bottom-content-custom"  align="center">
+                <p>获得三位好友支持，即可获得倩碧真男人特供旅行装</p>
+                <p>当天支持率最高的用户，获得倩碧真男人正品套装</p>
             </div>
         </div>
     </div>
 
-    <div id="footer" data-role="footer" class="footer" data-position="fixed" >
+    <div id="footer" data-role="footer" class="footer body-font-white-medium" data-position="fixed" >
         <table class="footer-table">
             <tr>
+                <td class="footer-column footer-column-active">
+                    <!--<a href="index.html" data-transition="slide" data-ajax="false">首&nbsp;&nbsp;页</a>-->
+                    <div id="start">首&nbsp;&nbsp;页</div>
+                </td>
                 <td class="footer-column">
-                    <a href="index.html" data-transition="slide" data-ajax="false">首&nbsp;&nbsp;页</a></td>
+                    <!--<a href="top.html" data-transition="slide" data-ajax="false">人气排行榜</a>-->
+                    <div id="rank">人气排行榜</div>
+                </td>
                 <td class="footer-column">
-                    <a href="top.html" data-transition="slide" data-ajax="false">人气排行榜</a></td>
+                    <!--<a href="rule.html" data-transition="slide" data-ajax="false">活动规则</a>-->
+                    <div id="rule">活动规则</div>
+                </td>
                 <td class="footer-column">
-                    <a href="rule.html" data-transition="slide" data-ajax="false">活动规则</a></td>
-                <td class="footer-column">
-                    <a href="success.html" data-transition="slide" data-ajax="false">查看我的</a></td>
+                    <!--<a href="success.html" data-transition="slide" data-ajax="false">查看我的</a>-->
+                    <div id="status">查看我的</div>
+                </td>
             </tr>
         </table>
+    </div>
+</div>
+<div data-role="page" id="fatal" data-dismissible="false" data-close-btn="right" class="ui-dialog-background-customized">
+    <div data-role="header">
+        <h1><span class="label label-danger">严重错误</span></h1>
+    </div>
+    <div data-role="content" class="ui-dialog-content-background-customized">
+        <div class="ui-dialog-message-customized">
+            <p><span id="fatalMsg" class="ui-input-label-customized"></span></p>
+        </div>
+        <button class="ui-btn ui-shadow ui-corner-all ui-btn-close-custom" data-mini="true" data-inline="true" onclick="$('#fatal').dialog('close');">确认</button>
     </div>
 </div>
 </body>

@@ -14,8 +14,12 @@
 
     <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
     <script src="js/jquery.mobile-1.4.4.min.js" type="text/javascript"></script>
-    <script src="js/beyond.wechat.share-0.1.js" type="text/javascript"></script>
     <script src="js/beyond.jquery.extension-1.0.js" type="text/javascript"></script>
+    <script src="js/beyond.common.js"></script>
+    <script src="js/beyond.wechat.js"></script>
+    <script src="js/app.config.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/app.wechat.share-0.1.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(window).ready(function () {
             var openid = $.getUrlParam('openid');
@@ -34,41 +38,41 @@
 <body>
 
 <div id="page" data-role="page" class="page" data-theme="d">
-    <div class="ui-header-custom" data-role="header" data-position="fixed">
-        <div id="banner" class="banner">
-        </div>
+    <div class="ui-header-custom" data-role="header">
+        <div id="banner" class="banner bannerbg"></div>
     </div>
-    <div data-role="content" data-theme="d">
-        <div id="header" class="top">
+    <div class="ui-content-custom" data-role="content" data-theme="d">
+        <div id="top" class="top">
             <table>
                 <tr>
                     <td>
-                        <img class="photo" src="images/thumbnail.png">
+                        <img id="photo" class="photo" src="images/unknown.png">
                     </td>
                     <td>
-                        <span id="nickname" class="nickname">&nbsp;&nbsp;Kirin&nbsp;</span><span class="header-font">是不是真男人？由你说了算！</span>
-
+                        <div class="top-content">
+                            <span id="nickname" class="nickname">Kirin</span><br>
+                            <span class="header-font">是不是真男人？由你说了算！</span>
+                        </div>
                     </td>
                 </tr>
             </table>
         </div>
         <div id="body" class="center">
-            <div id="circle" class="ui-status-background status-circle3" align="center">
+            <div id="circle" class="ui-common-circle-size status-circle3" align="center">
                 <div class="ui-status-circle-content-custom">
-                    <span class="status-font-black">
+                    <div class="status-font-black-tiny ui-status-circle-content-inner-custom">
                         珍惜现在，更着眼未来！<br>
                         我就是这样的真男人，<br>
                         你同意吗？<br>
-                        再有3位好友认同，<br>
-                        就能帮我赢取真男人特供<br>
-                        限量倩碧男士三步曲旅行装！
-                        </span>
+                        再有<span class="num-of-support">&nbsp;3&nbsp;</span>位好友认同，<br>
+                        就可获得倩碧真男人特供旅行装<br>
+                        </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="footer" data-role="footer" class="footer" data-position="fixed" >
+    <div id="footer" data-role="footer" class="footer body-font-white-medium" data-position="fixed" >
         <table class="footer-table">
             <tr>
                 <td class="footer-column">
